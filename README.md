@@ -28,7 +28,7 @@ Dokumentatsioon: https://developer.themoviedb.org/docs
 ```bash
 # 1. Klooni repositoorium
 git clone https://github.com/AnvarKubja/API-Call.git
-cd API-Call
+cd API-Call\KinoKast
 
 # 2. Paigalda vajalikud paketid
 npm install
