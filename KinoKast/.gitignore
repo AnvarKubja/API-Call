@@ -1,0 +1,25 @@
+# Sõltuvused
+node_modules/
+dist/
+dist-ssr/
+
+# Keskkonnamuutujad (EI tohi versioonihaldusesse!)
+.env
+.env.local
+.env.*.local
+
+# Logid
+*.log
+npm-debug.log*
+
+# Redaktori failid
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS failid
+.DS_Store
+Thumbs.db

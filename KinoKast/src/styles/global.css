@@ -1,0 +1,51 @@
+:root {
+  --sinine: #1976d2;
+  --sinine-tume: #1256a0;
+  --hall: #666;
+  --hele-hall: #f5f5f5;
+  --ääris: #ddd;
+  --tekst: #222;
+  --valge: #ffffff;
+  --kollane: #f5c518;
+  --punane: #e53935;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: var(--tekst);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+a {
+  color: var(--sinine);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
