@@ -2,7 +2,7 @@
 Filmide ja seriaalide avastamise rakendus, mis kasutab TMDb API-t.
 
 
-# Projekti kirjeldus
+## Projekti kirjeldus
 KinoKast on mitmeleheküljeline filmide ja seriaalide rakendus, mis võimaldab kasutajal:
 
 - Sirvida populaarseid, kõrgelt hinnatud ja kinos mängivaid filme
@@ -13,22 +13,22 @@ KinoKast on mitmeleheküljeline filmide ja seriaalide rakendus, mis võimaldab k
 - Salvestada lemmikuid (localStorage)
 
 
-# Kasutatud API
-# TMDb (The Movie Database)
+## Kasutatud API
+### TMDb (The Movie Database)
 Dokumentatsioon: https://developer.themoviedb.org/docs
 
 
 # Käivitamine
-# Eeldused
+### Eeldused
 - Node.js >= 18
 - TMDb API võti (tasuta: https://www.themoviedb.org/settings/api)
 
 
-# Käivitamise sammud:
+### Käivitamise sammud:
 ```bash
 # 1. Klooni repositoorium
-git clone https://github.com/AnvarKubja/kinokast.git
-cd KinoKast
+git clone https://github.com/AnvarKubja/API-Call.git
+cd API-Call
 
 # 2. Paigalda vajalikud paketid
 npm install
