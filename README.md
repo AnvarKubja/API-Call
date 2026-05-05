@@ -9,7 +9,7 @@ KinoKast on mitmeleheküljeline filmide ja seriaalide rakendus, mis võimaldab k
 - Leida populaarseid ja kõrgeima reitinguga sarjasid
 - Otsida filme ja sarjasid globaalse otsinguga
 - Filtreerida ja sorteerida tulemusi
-- Vaadata detailset infot iga filmi/sarja kohta (näitlejad, treiler, sarnased)
+- Vaadata detailset infot iga filmi/sarja kohta
 - Salvestada lemmikuid (localStorage)
 
 
