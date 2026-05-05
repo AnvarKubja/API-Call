@@ -12,7 +12,7 @@ import Favourites from './pages/Favourites';
 export default function App() {
   return (
     <FavouritesProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/API-Call">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
