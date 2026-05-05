@@ -3,11 +3,6 @@ node_modules/
 dist/
 dist-ssr/
 
-# Keskkonnamuutujad (EI tohi versioonihaldusesse!)
-.env
-.env.local
-.env.*.local
-
 # Logid
 *.log
 npm-debug.log*

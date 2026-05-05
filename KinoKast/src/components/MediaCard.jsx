@@ -1,5 +1,3 @@
-// Ühe filmi või sarja kaart
-
 import { Link } from 'react-router-dom';
 import { useFavourites } from '../context/FavouritesContext';
 import { getImageUrl } from '../services/tmdb';
@@ -7,7 +5,6 @@ import { getImageUrl } from '../services/tmdb';
 export default function MediaCard({ item }) {
   const { isFavourite, addFavourite, removeFavourite } = useFavourites();
 
-  // Määra meediumitüüp (film või sari)
   const mediaType = item.media_type || (item.title ? 'movie' : 'tv');
   const pealkiri = item.title || item.name;
   const aasta = (item.release_date || item.first_air_date || '').slice(0, 4);
@@ -15,7 +12,7 @@ export default function MediaCard({ item }) {
   const onLemmik = isFavourite(item.id, mediaType);
 
   const handleLemmik = (e) => {
-    e.preventDefault(); // Ära liigu detailvaatele
+    e.preventDefault();
     if (onLemmik) {
       removeFavourite(item.id, mediaType);
     } else {
@@ -24,31 +21,27 @@ export default function MediaCard({ item }) {
   };
 
   return (
-    <Link to={`/${mediaType}/${item.id}`} style={stiilid.kaart}>
-      {/* Filmi poster */}
-      <div style={stiilid.piltKonteiner}>
+    <Link to={`/${mediaType}/${item.id}`} style={s.kaart}>
+      <div style={s.piltKonteiner}>
         {pilt ? (
-          <img src={pilt} alt={pealkiri} style={stiilid.pilt} loading="lazy" />
+          <img src={pilt} alt={pealkiri} style={s.pilt} loading="lazy" />
         ) : (
-          <div style={stiilid.piltPuudub}>🎬</div>
+          <div style={s.piltPuudub}>🎬</div>
         )}
-
-        {/* Reiting paremas ülanurgas */}
         {item.vote_average > 0 && (
-          <div style={stiilid.reiting}>
-            ★ {item.vote_average.toFixed(1)}
-          </div>
+          <div style={s.reiting}>★ {item.vote_average.toFixed(1)}</div>
         )}
       </div>
 
-      {/* Kaardi allosa info */}
-      <div style={stiilid.info}>
-        <p style={stiilid.pealkiri}>{pealkiri}</p>
-        <div style={stiilid.meta}>
-          <span style={stiilid.aasta}>{aasta}</span>
-          {/* Lemmiku nupp - täidetud punane süda kui lemmik, outline kui mitte */}
-          <button onClick={handleLemmik} style={stiilid.lemmikNupp} title="Lisa/eemalda lemmikutest">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill={onLemmik ? '#e53935' : 'none'} stroke={onLemmik ? '#e53935' : '#333'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <div style={s.info}>
+        <p style={s.pealkiri}>{pealkiri}</p>
+        <div style={s.meta}>
+          <span style={s.aasta}>{aasta}</span>
+          <button onClick={handleLemmik} style={s.lemmikNupp} title="Lisa/eemalda lemmikutest">
+            <svg width="20" height="20" viewBox="0 0 24 24"
+              fill={onLemmik ? '#e53935' : 'none'}
+              stroke={onLemmik ? '#e53935' : '#aaa'}
+              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
           </button>
@@ -58,22 +51,19 @@ export default function MediaCard({ item }) {
   );
 }
 
-const stiilid = {
+const s = {
   kaart: {
     display: 'block',
     backgroundColor: 'white',
-    borderRadius: '8px',
+    borderRadius: '6px',
     overflow: 'hidden',
-    border: '1px solid #ddd',
     textDecoration: 'none',
     color: '#222',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
   piltKonteiner: {
     position: 'relative',
     aspectRatio: '2/3',
-    backgroundColor: '#eee',
+    backgroundColor: '#e8e8e8',
     overflow: 'hidden',
   },
   pilt: {
@@ -88,13 +78,12 @@ const stiilid = {
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '40px',
-    color: '#999',
   },
   reiting: {
     position: 'absolute',
-    top: '8px',
-    right: '8px',
-    backgroundColor: 'rgba(0,0,0,0.75)',
+    top: '6px',
+    right: '6px',
+    backgroundColor: 'rgba(0,0,0,0.7)',
     color: '#f5c518',
     padding: '2px 6px',
     borderRadius: '4px',
@@ -102,13 +91,12 @@ const stiilid = {
     fontWeight: 'bold',
   },
   info: {
-    padding: '10px',
+    padding: '8px 10px',
   },
   pealkiri: {
     fontWeight: 'bold',
-    fontSize: '14px',
-    marginBottom: '6px',
-    // Lõika pikk pealkiri kahele reale
+    fontSize: '13px',
+    marginBottom: '4px',
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
@@ -120,14 +108,14 @@ const stiilid = {
     alignItems: 'center',
   },
   aasta: {
-    color: '#666',
-    fontSize: '13px',
+    color: '#888',
+    fontSize: '12px',
   },
   lemmikNupp: {
     background: 'none',
     border: 'none',
-    fontSize: '18px',
     padding: '0',
     lineHeight: 1,
+    cursor: 'pointer',
   },
 };
