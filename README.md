@@ -9,7 +9,7 @@ KinoKast on mitmeleheküljeline filmide ja seriaalide rakendus, mis võimaldab k
 - Leida populaarseid ja kõrgeima reitinguga sarjasid
 - Otsida filme ja sarjasid globaalse otsinguga
 - Filtreerida ja sorteerida tulemusi
-- Vaadata detailset infot iga filmi/sarja kohta (näitlejad, treiler, sarnased)
+- Vaadata detailset infot iga filmi/sarja kohta
 - Salvestada lemmikuid (localStorage)
 
 
@@ -33,13 +33,7 @@ cd API-Call\KinoKast
 # 2. Paigalda vajalikud paketid
 npm install
 
-# 3. Loo .env fail
-cp .env.example .env
-
-# 4. Lisa oma TMDb API võti .env faili
-# Ava .env ja asenda 'your_tmdb_api_key_here' oma võtmega
-
-# 5. Käivita server
+# 3. Käivita server
 npm run dev
 
 # Rakendus töötab aadressil http://localhost:5173
