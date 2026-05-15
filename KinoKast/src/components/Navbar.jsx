@@ -1,4 +1,4 @@
-// Ülemine navigatsiooniriba
+// Ülemine navigatsiooniriba - tumeda portfolio stiilis
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,7 +9,6 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { favourites } = useFavourites();
 
-  // Otsingu käivitamine
   const handleOtsing = (e) => {
     e.preventDefault();
     if (otsing.trim()) {
@@ -19,50 +18,49 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={stiilid.nav}>
-      <div className="container" style={stiilid.sisu}>
-        {/* Logo */}
-        <NavLink to="/" style={stiilid.logo}>
+    <nav style={s.nav}>
+      <div className="container" style={s.sisu}>
+        <NavLink to="/" style={s.logo}>
           KinoKast
         </NavLink>
 
-        {/* Menüülingid */}
-        <div style={stiilid.lingid}>
-          <NavLink to="/" end style={({ isActive }) => isActive ? stiilid.aktiivne : stiilid.link}>
+        <div style={s.lingid}>
+          <NavLink to="/" end style={({ isActive }) => isActive ? s.aktiivne : s.link}>
             Avaleht
           </NavLink>
-          <NavLink to="/movies" style={({ isActive }) => isActive ? stiilid.aktiivne : stiilid.link}>
+          <NavLink to="/movies" style={({ isActive }) => isActive ? s.aktiivne : s.link}>
             Filmid
           </NavLink>
-          <NavLink to="/tv" style={({ isActive }) => isActive ? stiilid.aktiivne : stiilid.link}>
+          <NavLink to="/tv" style={({ isActive }) => isActive ? s.aktiivne : s.link}>
             Sarjad
           </NavLink>
-          <NavLink to="/favourites" style={({ isActive }) => isActive ? stiilid.aktiivne : stiilid.link}>
+          <NavLink to="/favourites" style={({ isActive }) => isActive ? s.aktiivne : s.link}>
             Lemmikud {favourites.length > 0 && `(${favourites.length})`}
           </NavLink>
         </div>
 
-        {/* Otsinguvorm */}
-        <form onSubmit={handleOtsing} style={stiilid.vorm}>
+        <form onSubmit={handleOtsing} style={s.vorm}>
           <input
             type="text"
             value={otsing}
             onChange={(e) => setOtsing(e.target.value)}
             placeholder="Otsi filme..."
-            style={stiilid.input}
+            style={s.input}
           />
-          <button type="submit" style={stiilid.nupp}>Otsi</button>
+          <button type="submit" style={s.nupp}>Otsi</button>
         </form>
       </div>
     </nav>
   );
 }
 
-// Inline stiilid - lihtsam mõista kui eraldi CSS failid
-const stiilid = {
+const s = {
   nav: {
-    backgroundColor: '#1976d2',
-    padding: '12px 0',
+    backgroundColor: 'rgba(8, 9, 26, 0.85)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    padding: '14px 0',
     position: 'sticky',
     top: 0,
     zIndex: 100,
@@ -70,33 +68,39 @@ const stiilid = {
   sisu: {
     display: 'flex',
     alignItems: 'center',
-    gap: '20px',
+    gap: '24px',
     flexWrap: 'wrap',
   },
   logo: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '800',
     fontSize: '20px',
     textDecoration: 'none',
+    letterSpacing: '0.5px',
   },
   lingid: {
     display: 'flex',
-    gap: '8px',
+    gap: '4px',
     flexWrap: 'wrap',
   },
   link: {
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(255,255,255,0.6)',
     textDecoration: 'none',
-    padding: '6px 12px',
-    borderRadius: '4px',
+    padding: '6px 14px',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: '500',
+    transition: 'all 0.2s',
   },
   aktiivne: {
     color: 'white',
     textDecoration: 'none',
-    padding: '6px 12px',
-    borderRadius: '4px',
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    fontWeight: 'bold',
+    padding: '6px 14px',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: '600',
+    backgroundColor: 'rgba(108, 99, 255, 0.2)',
+    border: '1px solid rgba(108, 99, 255, 0.4)',
   },
   vorm: {
     display: 'flex',
@@ -104,18 +108,22 @@ const stiilid = {
     marginLeft: 'auto',
   },
   input: {
-    padding: '6px 12px',
-    borderRadius: '4px',
-    border: 'none',
+    padding: '7px 14px',
+    borderRadius: '8px',
+    border: '1px solid rgba(255,255,255,0.15)',
     fontSize: '14px',
     width: '200px',
+    backgroundColor: 'rgba(255,255,255,0.07)',
+    color: 'white',
+    outline: 'none',
   },
   nupp: {
-    padding: '6px 14px',
-    backgroundColor: 'white',
-    color: '#1976d2',
-    border: 'none',
-    borderRadius: '4px',
-    fontWeight: 'bold',
+    padding: '7px 16px',
+    backgroundColor: 'rgba(108, 99, 255, 0.8)',
+    color: 'white',
+    border: '1px solid rgba(108, 99, 255, 0.5)',
+    borderRadius: '8px',
+    fontWeight: '600',
+    fontSize: '14px',
   },
 };

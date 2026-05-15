@@ -23,8 +23,8 @@ export default function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="*" element={
-            <div style={{ textAlign: 'center', padding: '120px 20px', color: '#666' }}>
-              <h1 style={{ fontSize: '6rem', color: '#1976d2' }}>404</h1>
+            <div style={{ textAlign: 'center', padding: '120px 20px', color: 'rgba(255,255,255,0.3)', position: 'relative', zIndex: 1 }}>
+              <h1 style={{ fontSize: '6rem', color: 'rgba(108,99,255,0.7)', fontWeight: '900' }}>404</h1>
               <p>Lehekülge ei leitud</p>
             </div>
           } />

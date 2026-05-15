@@ -1,5 +1,3 @@
-// Otsingutulemusete leht
-
 import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { searchMulti } from '../services/tmdb';
@@ -9,11 +7,10 @@ import { LoadingSpinner, ErrorMessage } from '../components/LoadingSpinner';
 
 export default function Search() {
   const [searchParams] = useSearchParams();
-  const päring = searchParams.get('q') || ''; // URL-ist: /search?q=batman
+  const päring = searchParams.get('q') || '';
   const [leht, setLeht] = useState(1);
-  const [filter, setFilter] = useState('all'); // Filtreeri: kõik / filmid / sarjad
+  const [filter, setFilter] = useState('all');
 
-  // Lähtesta leht kui päring muutub
   useEffect(() => { setLeht(1); }, [päring]);
 
   const { data, loading, error } = useFetch(
@@ -21,81 +18,61 @@ export default function Search() {
     [päring, leht]
   );
 
-  // Eemalda isikud (media_type: 'person'), jäta alles filmid ja sarjad
-  let tulemused = (data?.results || []).filter(
-    item => item.media_type === 'movie' || item.media_type === 'tv'
-  );
-
-  // Rakenda filter
-  if (filter !== 'all') {
-    tulemused = tulemused.filter(item => item.media_type === filter);
-  }
+  let tulemused = data?.results || [];
+  if (filter !== 'all') tulemused = tulemused.filter(i => i.media_type === filter);
 
   const koguLehti = Math.min(data?.total_pages || 1, 500);
 
   return (
-    <main className="container" style={{ padding: '24px 16px' }}>
+    <main className="container" style={{ padding: '40px 20px', position: 'relative', zIndex: 1 }}>
       {päring ? (
-        <h1 style={{ marginBottom: '8px' }}>Otsing: "{päring}"</h1>
+        <h1 style={s.pealkiri}>Otsing: <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: '400' }}>"{päring}"</span></h1>
       ) : (
-        <h1>Otsing</h1>
+        <h1 style={s.pealkiri}>Otsing</h1>
       )}
 
       {data?.total_results > 0 && (
-        <p style={{ color: '#666', marginBottom: '16px' }}>
+        <p style={{ color: 'rgba(255,255,255,0.35)', marginBottom: '20px', fontSize: '14px' }}>
           {data.total_results.toLocaleString()} tulemust
         </p>
       )}
 
-      {/* Filtreerimise nupud */}
       {päring && (
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-          {[
-            { id: 'all',   nimetus: 'Kõik' },
-            { id: 'movie', nimetus: 'Filmid' },
-            { id: 'tv',    nimetus: 'Sarjad' },
-          ].map(f => (
-            <button
-              key={f.id}
-              onClick={() => setFilter(f.id)}
-              style={f.id === filter ? stiilid.nuppAktiivne : stiilid.nupp}
-            >
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+          {[{ id: 'all', nimetus: 'Kõik' }, { id: 'movie', nimetus: 'Filmid' }, { id: 'tv', nimetus: 'Sarjad' }].map(f => (
+            <button key={f.id} onClick={() => setFilter(f.id)}
+              style={f.id === filter ? s.nuppAktiivne : s.nupp}>
               {f.nimetus}
             </button>
           ))}
         </div>
       )}
 
-      {/* Kui päring puudub */}
       {!päring && (
-        <p style={{ color: '#666', marginTop: '40px', textAlign: 'center' }}>
+        <p style={{ color: 'rgba(255,255,255,0.3)', marginTop: '60px', textAlign: 'center', fontSize: '15px' }}>
           Sisesta otsingusõna navigatsiooniribale.
         </p>
       )}
 
       {loading && <LoadingSpinner text="Otsin..." />}
-      {error   && <ErrorMessage message={error} />}
+      {error && <ErrorMessage message={error} />}
       {!loading && !error && päring && <MediaGrid items={tulemused} />}
 
-      {/* Lehekülgede navigatsioon */}
       {!loading && !error && päring && koguLehti > 1 && (
-        <div style={stiilid.leheNavi}>
-          <button onClick={() => setLeht(l => Math.max(1, l - 1))} disabled={leht === 1} style={stiilid.lehenupp}>
-            ← Eelmine
-          </button>
-          <span>{leht} / {koguLehti}</span>
-          <button onClick={() => setLeht(l => Math.min(koguLehti, l + 1))} disabled={leht === koguLehti} style={stiilid.lehenupp}>
-            Järgmine →
-          </button>
+        <div style={s.leheNavi}>
+          <button onClick={() => setLeht(l => Math.max(1, l - 1))} disabled={leht === 1} style={s.lehenupp}>← Eelmine</button>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>{leht} / {koguLehti}</span>
+          <button onClick={() => setLeht(l => Math.min(koguLehti, l + 1))} disabled={leht === koguLehti} style={s.lehenupp}>Järgmine →</button>
         </div>
       )}
     </main>
   );
 }
 
-const stiilid = {
-  nupp: { padding: '6px 14px', backgroundColor: '#f5f5f5', border: '1px solid #ddd', borderRadius: '4px' },
-  nuppAktiivne: { padding: '6px 14px', backgroundColor: '#1976d2', color: 'white', border: '1px solid #1976d2', borderRadius: '4px', fontWeight: 'bold' },
-  leheNavi: { display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', padding: '32px 0', color: '#666' },
-  lehenupp: { padding: '8px 16px', backgroundColor: 'white', border: '1px solid #ddd', borderRadius: '4px' },
+const s = {
+  pealkiri: { fontSize: '28px', fontWeight: '800', marginBottom: '8px', color: 'white' },
+  nupp: { padding: '6px 16px', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'rgba(255,255,255,0.65)' },
+  nuppAktiivne: { padding: '6px 16px', backgroundColor: 'rgba(108,99,255,0.25)', color: 'white', border: '1px solid rgba(108,99,255,0.5)', borderRadius: '8px', fontWeight: '700' },
+  leheNavi: { display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', padding: '40px 0' },
+  lehenupp: { padding: '8px 20px', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: 'rgba(255,255,255,0.7)' },
 };
